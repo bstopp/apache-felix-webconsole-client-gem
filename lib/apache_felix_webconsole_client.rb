@@ -31,9 +31,10 @@ require 'apache_felix_webconsole_client/configuration'
 require 'apache_felix_webconsole_client/models/bundle'
 require 'apache_felix_webconsole_client/models/bundle_list'
 require 'apache_felix_webconsole_client/models/bundle_props'
+require 'apache_felix_webconsole_client/models/bundle_state'
 
 # APIs
-require 'apache_felix_webconsole_client/api/default_api'
+require 'apache_felix_webconsole_client/api/bundle_api'
 
 module ApacheFelix
   class << self

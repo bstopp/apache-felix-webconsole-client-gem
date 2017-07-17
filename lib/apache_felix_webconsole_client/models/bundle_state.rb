@@ -24,30 +24,26 @@ limitations under the License.
 require 'date'
 
 module ApacheFelix
-  # List of bundles
-  class BundleList
-    attr_accessor :status
+  # State of a bundle; see `org.osgi.framework.Bundle.java` for meaning of state values.
+  class BundleState
+    attr_accessor :fragment
 
-    attr_accessor :s
-
-    attr_accessor :data
+    attr_accessor :state_raw
 
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'status' => :'status',
-        :'s' => :'s',
-        :'data' => :'data'
+        :'fragment' => :'fragment',
+        :'state_raw' => :'stateRaw'
       }
     end
 
     # Attribute type mapping.
     def self.swagger_types
       {
-        :'status' => :'String',
-        :'s' => :'Array<String>',
-        :'data' => :'Array<Bundle>'
+        :'fragment' => :'BOOLEAN',
+        :'state_raw' => :'Integer'
       }
     end
 
@@ -59,20 +55,12 @@ module ApacheFelix
       # convert string to symbol for hash key
       attributes = attributes.each_with_object({}){|(k,v), h| h[k.to_sym] = v}
 
-      if attributes.has_key?(:'status')
-        self.status = attributes[:'status']
+      if attributes.has_key?(:'fragment')
+        self.fragment = attributes[:'fragment']
       end
 
-      if attributes.has_key?(:'s')
-        if (value = attributes[:'s']).is_a?(Array)
-          self.s = value
-        end
-      end
-
-      if attributes.has_key?(:'data')
-        if (value = attributes[:'data']).is_a?(Array)
-          self.data = value
-        end
+      if attributes.has_key?(:'stateRaw')
+        self.state_raw = attributes[:'stateRaw']
       end
 
     end
@@ -95,9 +83,8 @@ module ApacheFelix
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          status == o.status &&
-          s == o.s &&
-          data == o.data
+          fragment == o.fragment &&
+          state_raw == o.state_raw
     end
 
     # @see the `==` method
@@ -109,7 +96,7 @@ module ApacheFelix
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [status, s, data].hash
+      [fragment, state_raw].hash
     end
 
     # Builds the object from hash

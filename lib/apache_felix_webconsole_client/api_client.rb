@@ -66,18 +66,10 @@ module ApacheFelix
       end
 
       unless response.success?
-        if response.timed_out?
-          fail ApiError.new('Connection timed out')
-        elsif response.code == 0
-          # Errors from libcurl will be made visible here
-          fail ApiError.new(:code => 0,
-                            :message => response.return_message)
-        else
-          fail ApiError.new(:code => response.code,
-                            :response_headers => response.headers,
-                            :response_body => response.body),
-               response.status_message
-        end
+        fail ApiError.new(:code => response.code,
+                          :response_headers => response.headers,
+                          :response_body => response.body),
+             response.status_message
       end
 
       if opts[:return_type]
@@ -142,11 +134,10 @@ module ApacheFelix
     #   application/json
     #   application/json; charset=UTF8
     #   APPLICATION/JSON
-    #   */*
     # @param [String] mime MIME
-    # @return [Boolean] True if the MIME is application/json
+    # @return [Boolean] True if the MIME is applicaton/json
     def json_mime?(mime)
-       (mime == "*/*") || !(mime =~ /\Aapplication\/json(;.*)?\z/i).nil?
+       !(mime =~ /\Aapplication\/json(;.*)?\z/i).nil?
     end
 
     # Deserialize the response to the given return type.
@@ -297,7 +288,7 @@ module ApacheFelix
     # Update hearder and query params based on authentication settings.
     #
     # @param [Hash] header_params Header parameters
-    # @param [Hash] query_params Query parameters
+    # @param [Hash] form_params Query parameters
     # @param [String] auth_names Authentication scheme name
     def update_params_for_auth!(header_params, query_params, auth_names)
       Array(auth_names).each do |auth_name|

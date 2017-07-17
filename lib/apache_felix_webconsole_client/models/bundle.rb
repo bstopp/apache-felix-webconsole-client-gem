@@ -24,7 +24,7 @@ limitations under the License.
 require 'date'
 
 module ApacheFelix
-
+  # Details about a bundle.
   class Bundle
     attr_accessor :id
 
@@ -203,7 +203,7 @@ module ApacheFelix
     def build_from_hash(attributes)
       return nil unless attributes.is_a?(Hash)
       self.class.swagger_types.each_pair do |key, type|
-        if type =~ /\AArray<(.*)>/i
+        if type =~ /^Array<(.*)>/i
           # check to ensure the input is an array given that the the attribute
           # is documented as an array but the input is not
           if attributes[self.class.attribute_map[key]].is_a?(Array)
@@ -234,7 +234,7 @@ module ApacheFelix
       when :Float
         value.to_f
       when :BOOLEAN
-        if value.to_s =~ /\A(true|t|yes|y|1)\z/i
+        if value.to_s =~ /^(true|t|yes|y|1)$/i
           true
         else
           false
@@ -245,7 +245,7 @@ module ApacheFelix
       when /\AArray<(?<inner_type>.+)>\z/
         inner_type = Regexp.last_match[:inner_type]
         value.map { |v| _deserialize(inner_type, v) }
-      when /\AHash<(?<k_type>.+?), (?<v_type>.+)>\z/
+      when /\AHash<(?<k_type>.+), (?<v_type>.+)>\z/
         k_type = Regexp.last_match[:k_type]
         v_type = Regexp.last_match[:v_type]
         {}.tap do |hash|

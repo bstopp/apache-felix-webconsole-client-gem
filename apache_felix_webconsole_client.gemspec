@@ -35,7 +35,7 @@ Gem::Specification.new do |s|
   s.homepage    = "https://github.com/bstopp/apache-felix-webconsole-client-gem"
   s.summary     = "Apache Felix WebConsole Client"
   s.description = "Client for Apache Felix Web Console API. List bundles, configure services, etc."
-  s.license     = "Apache 2.0"
+  s.license     = "Apache-2.0"
   s.required_ruby_version = ">= 1.9"
 
   s.add_runtime_dependency 'typhoeus', '~> 1.0', '>= 1.0.1'
@@ -49,11 +49,11 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'autotest-growl', '~> 0.2', '>= 0.2.16'
   s.add_development_dependency 'autotest-fsevent', '~> 0.2', '>= 0.2.11'
 
-  s.add_development_dependency 'rubocop'
-  s.add_development_dependency 'simplecov'
-  s.add_development_dependency 'codeclimate-test-reporter'
+  s.add_development_dependency 'rubocop', '~>0'
+  s.add_development_dependency 'simplecov', '~>0'
+  s.add_development_dependency 'codeclimate-test-reporter', '~>0'
 
-  s.files         = `find *`.split("\n").uniq.sort.select{|f| !f.empty? }
+  s.files         = `find *`.split("\n").uniq.sort.select{|f| !f.empty? && f.end_with?('.gem') }
   s.test_files    = `find spec/*`.split("\n")
   s.executables   = []
   s.require_paths = ["lib"]
